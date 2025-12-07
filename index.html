@@ -1,368 +1,133 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Carnes Premium | Carnicería 2026</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Carnicería premium con cortes seleccionados, combos parrilleros, venta mayorista, pasos de compra y pedidos por WhatsApp. Demo 2026 con animaciones.">
+  <meta charset="UTF-8">
+  <title>Carnes Premium | Demo de carnicería profesional 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Carnicería premium con cortes seleccionados, combos parrilleros, atención mayorista y ventas por WhatsApp. Demo profesional 2026.">
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
 
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+
   <style>
-    :root {
-      --bg: #050505;
-      --bg-soft: #101010;
-      --accent: #d32f2f;
-      --accent-soft: #ff7961;
-      --gold: #f1c40f;
-      --text-main: #f9f9f9;
-      --text-muted: #b9b9b9;
-      --border-soft: rgba(255,255,255,0.12);
-      --radius: 22px;
-      --shadow: 0 18px 45px rgba(0,0,0,0.7);
-      --max-width: 1200px;
+    :root{
+      --bg:#050505;
+      --bg-soft:#101010;
+      --accent:#d32f2f;
+      --gold:#f1c40f;
+      --text:#f9f9f9;
+      --muted:#bdbdbd;
+      --border:rgba(255,255,255,.14);
+      --radius:24px;
+      --shadow:0 18px 45px rgba(0,0,0,.7);
+      --max:1200px;
     }
 
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
-    body { background: radial-gradient(circle at top,#181818,#000); color:var(--text-main); scroll-behavior:smooth; }
-    a { text-decoration:none; color:inherit; }
-    img { max-width:100%; display:block; border-radius:18px; }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+    body{background:radial-gradient(circle at top,#181818,#000);color:var(--text);scroll-behavior:smooth}
+    img{width:100%;display:block;border-radius:18px}
+    a{text-decoration:none;color:inherit}
+    section{padding:110px 20px;scroll-margin-top:110px;}
+    .container{max-width:var(--max);margin:auto}
+    .title{font-size:2.6rem;margin-bottom:10px}
+    .subtitle{color:var(--muted);margin-bottom:45px;max-width:640px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+    .card{background:rgba(255,255,255,.03);border-radius:var(--radius);padding:24px;border:1px solid var(--border);box-shadow:var(--shadow)}
 
     /* NAV */
     header{
-      position:fixed;top:0;left:0;right:0;z-index:1000;
+      position:fixed;top:0;left:0;right:0;z-index:999;
       background:rgba(0,0,0,.85);
-      backdrop-filter:blur(14px);
-      border-bottom:1px solid rgba(255,255,255,0.08);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(255,255,255,.1);
     }
     .nav{
-      max-width:var(--max-width);
-      margin:auto;
+      max-width:var(--max);margin:auto;
       padding:14px 22px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:24px;
+      display:flex;justify-content:space-between;align-items:center;gap:18px;
     }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      font-weight:900;
-    }
-    .brand span{
-      display:block;
-      font-size:0.8rem;
-      font-weight:500;
-      color:var(--text-muted);
-    }
-    .menu{
-      display:flex;
-      gap:20px;
-      font-size:0.9rem;
-    }
-    .menu a{
-      opacity:0.8;
-      position:relative;
-    }
-    .menu a::after{
-      content:"";
-      position:absolute;
-      left:0;bottom:-4px;
-      width:0;height:2px;
-      background:var(--accent);
-      transition:width .25s ease;
-    }
-    .menu a:hover{opacity:1;}
-    .menu a:hover::after{width:100%;}
-    .nav-cta{
-      background:var(--accent);
-      padding:8px 18px;
-      border-radius:999px;
-      font-size:.8rem;
-      font-weight:600;
-      box-shadow:0 0 18px rgba(211,47,47,0.7);
-      white-space:nowrap;
-    }
-    @media(max-width:900px){
-      .menu{display:none;}
-    }
-
-    /* LAYOUT BASICO */
-    section{padding:110px 20px 90px;}
-    .container{max-width:var(--max-width);margin:auto;}
-    .title{font-size:2.6rem;margin-bottom:10px;}
-    .subtitle{color:var(--text-muted);margin-bottom:45px;max-width:640px;}
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-      gap:24px;
-    }
-    .card{
-      background:rgba(255,255,255,0.03);
-      border-radius:var(--radius);
-      padding:24px;
-      border:1px solid var(--border-soft);
-      box-shadow:var(--shadow);
-    }
+    .brand{font-weight:900;font-size:1.1rem}
+    .brand span{display:block;font-size:.8rem;font-weight:400;color:var(--muted)}
+    .menu{display:flex;gap:18px;font-size:.9rem}
+    .menu a{opacity:.8}
+    .menu a:hover{opacity:1;color:var(--gold)}
+    .navbtn{background:var(--accent);padding:8px 18px;border-radius:999px;font-size:.8rem;font-weight:600;box-shadow:0 0 18px rgba(211,47,47,.7)}
+    @media(max-width:900px){.menu{display:none}}
 
     /* HERO */
     .hero{
-      padding-top:120px;
       min-height:100vh;
+      padding-top:120px;
       background:
-        linear-gradient(120deg,rgba(0,0,0,.85),rgba(0,0,0,.7)),
-        url("https://images.unsplash.com/photo-1604908176997-1251884b08a3?auto=format&fit=crop&w=1600&q=80")
-        center/cover no-repeat;
+        linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.9)),
+        url("https://images.unsplash.com/photo-1604908176997-1251884b08a3?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
       display:flex;align-items:center;
     }
     .hero-inner{
-      max-width:var(--max-width);
-      margin:auto;
+      max-width:var(--max);margin:auto;
       padding:40px 22px 90px;
-      display:grid;
-      grid-template-columns:1.2fr 1fr;
-      gap:40px;
-      align-items:center;
+      display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;
     }
-    .hero h1{
-      font-size:3.4rem;
-      font-weight:900;
-      line-height:1.1;
-    }
-    .hero h1 span{color:var(--gold);}
-    .hero p{
-      margin-top:16px;
-      color:var(--text-muted);
-      max-width:520px;
-    }
-    .hero-ctas{
-      margin-top:28px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
-    }
-    .btn-primary{
-      padding:14px 30px;
-      border-radius:999px;
-      border:none;
-      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      font-weight:700;
-      cursor:pointer;
-      box-shadow:0 16px 40px rgba(211,47,47,0.8);
-      font-size:0.95rem;
-    }
-    .btn-secondary{
-      padding:13px 26px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,0.28);
-      background:rgba(0,0,0,0.7);
-      color:var(--text-muted);
-      font-size:0.9rem;
-      cursor:pointer;
-    }
-    .hero-box{
-      background:rgba(0,0,0,0.78);
-      border-radius:24px;
-      padding:24px;
-      border:1px solid rgba(255,255,255,0.12);
-      box-shadow:var(--shadow);
-    }
-    .hero-box h3{margin-bottom:10px;font-size:1.05rem;}
-    .combo-row{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      padding:8px 0;
-      border-bottom:1px dashed rgba(255,255,255,0.12);
-      font-size:0.88rem;
-    }
-    .combo-row:last-child{border-bottom:none;}
-    .combo-price{font-weight:700;color:var(--gold);}
-    .badge-strip{
-      margin-top:18px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      font-size:0.78rem;
-    }
-    .badge{
-      padding:5px 11px;
-      border-radius:999px;
-      background:rgba(0,0,0,0.7);
-      border:1px solid rgba(255,255,255,0.18);
-      color:var(--text-muted);
-    }
-    .badge strong{color:var(--gold);}
+    .hero h1{font-size:3.4rem;font-weight:900;line-height:1.1}
+    .hero h1 span{color:var(--gold)}
+    .hero p{margin-top:16px;color:var(--muted);max-width:520px}
+    .hero-ctas{margin-top:26px;display:flex;flex-wrap:wrap;gap:14px}
+    .btn-main{background:linear-gradient(135deg,var(--accent),#ff6b6b);padding:14px 30px;border-radius:999px;font-weight:700;box-shadow:0 16px 40px rgba(211,47,47,.8)}
+    .btn-sec{border:1px solid rgba(255,255,255,.28);padding:13px 26px;border-radius:999px;color:var(--muted);font-size:.9rem}
+    .hero-box{background:rgba(0,0,0,.78);border-radius:var(--radius);padding:24px;border:1px solid rgba(255,255,255,.16);box-shadow:var(--shadow)}
+    .combo{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.18);font-size:.9rem}
+    .combo:last-child{border-bottom:none}
+    .combo strong{color:var(--gold)}
     @media(max-width:900px){
-      .hero-inner{grid-template-columns:1fr;}
-      .hero h1{font-size:2.5rem;}
+      .hero-inner{grid-template-columns:1fr}
+      .hero h1{font-size:2.5rem}
     }
 
-    /* PROMO DESTACADA */
-    .promo-main{
-      background:radial-gradient(circle at top left,#ffec99,var(--gold));
-      border-radius:28px;
-      padding:40px 30px;
-      color:#2b1506;
-      position:relative;
-      overflow:hidden;
-    }
-    .promo-main h2{font-size:2rem;}
-    .promo-main .price{
-      font-size:2.6rem;
-      font-weight:900;
-      margin:20px 0 6px;
-    }
-    .promo-main small{font-size:0.8rem;}
+    /* PROMOS */
+    .promo-main{background:linear-gradient(135deg,var(--gold),#ffe18a);border-radius:28px;padding:40px;color:#2b1506;position:relative;overflow:hidden}
+    .promo-main .price{font-size:2.6rem;font-weight:900;margin:16px 0 6px}
     .promo-main::after{
-      content:"HOY";
-      position:absolute;
-      right:-10px;top:-30px;
-      font-size:5rem;
-      font-weight:900;
-      color:rgba(0,0,0,0.08);
+      content:"HOY";position:absolute;right:-8px;top:-30px;
+      font-size:4.6rem;font-weight:900;color:rgba(0,0,0,.06);
     }
+    .promo-list{margin-top:24px;display:grid;gap:14px}
+    .promo-item{display:flex;justify-content:space-between;align-items:flex-start;font-size:.86rem;padding:10px 14px;border-radius:18px;border:1px dashed rgba(255,255,255,.18);background:rgba(255,255,255,.03);color:var(--muted)}
 
-    .promo-grid{
-      display:grid;
-      grid-template-columns:1.4fr 1fr;
-      gap:24px;
-    }
-    .promo-card{
-      background:rgba(255,255,255,0.03);
-      border-radius:var(--radius);
-      padding:18px 20px;
-      border:1px dashed var(--border-soft);
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      font-size:0.85rem;
-    }
-    .promo-card strong{display:block;margin-bottom:4px;}
-    .promo-card span{color:var(--text-muted);}
-    .promo-card-price{font-weight:700;color:var(--accent-soft);}
-    @media(max-width:900px){
-      .promo-grid{grid-template-columns:1fr;}
-    }
-
-    /* GALERIA */
-    .gallery-item{
-      position:relative;
-      overflow:hidden;
-      border-radius:22px;
-      border:1px solid rgba(255,255,255,0.08);
-      box-shadow:var(--shadow);
-    }
-    .gallery-item img{
-      height:100%;
-      width:100%;
-      object-fit:cover;
-      transition:transform .4s ease;
-    }
-    .gallery-item:hover img{transform:scale(1.05);}
-    .gallery-label{
-      position:absolute;
-      left:12px;bottom:12px;
-      padding:4px 10px;
-      border-radius:999px;
-      background:rgba(0,0,0,0.76);
-      font-size:0.75rem;
-    }
+    /* GALERÍA */
+    .gallery-item{position:relative;overflow:hidden;border-radius:var(--radius);border:1px solid rgba(255,255,255,.12);box-shadow:var(--shadow)}
+    .gallery-item img{height:100%;width:100%;object-fit:cover;transition:transform .4s ease}
+    .gallery-item:hover img{transform:scale(1.05)}
+    .gallery-label{position:absolute;left:14px;bottom:14px;background:rgba(0,0,0,.78);padding:4px 12px;border-radius:999px;font-size:.75rem}
 
     /* TESTIMONIOS */
-    .testi{
-      background:rgba(255,255,255,0.03);
-      padding:26px;
-      border-radius:var(--radius);
-      border:1px solid var(--border-soft);
-      font-size:0.9rem;
-      color:var(--text-muted);
-    }
-    .testi strong{display:block;margin-top:8px;color:var(--text-main);}
+    .testi{background:rgba(255,255,255,.03);padding:26px;border-radius:var(--radius);border:1px solid var(--border);font-size:.9rem;color:var(--muted)}
+    .testi strong{display:block;margin-top:8px;color:var(--text)}
 
-    /* PASOS + HORARIOS */
-    .steps-hours{
-      display:grid;
-      grid-template-columns:1.1fr 1fr;
-      gap:26px;
-    }
-    .step{
-      position:relative;
-      padding-left:40px;
-      margin-bottom:18px;
-      font-size:0.9rem;
-      color:var(--text-muted);
-    }
-    .step-number{
-      position:absolute;
-      left:0;top:2px;
-      width:26px;height:26px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,0.4);
-      display:flex;align-items:center;justify-content:center;
-      font-size:0.8rem;color:var(--gold);
-      background:rgba(0,0,0,0.7);
-    }
-    .hours-table{
-      width:100%;
-      border-collapse:collapse;
-      font-size:0.86rem;
-      margin-top:10px;
-    }
-    .hours-table tr{border-bottom:1px solid rgba(255,255,255,0.12);}
-    .hours-table td{padding:7px 0;color:var(--text-muted);}
-    .hours-table td:first-child{width:40%;}
-
-    iframe{
-      width:100%;
-      height:260px;
-      border:none;
-      border-radius:24px;
-      box-shadow:var(--shadow);
-    }
-    @media(max-width:900px){
-      .steps-hours{grid-template-columns:1fr;}
-    }
+    /* PASOS + HORARIOS + MAPA */
+    .steps-wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:24px}
+    .step{margin-bottom:16px;font-size:.9rem;color:var(--muted)}
+    table{width:100%;border-collapse:collapse;font-size:.85rem;color:var(--muted);margin-top:10px}
+    td{padding:7px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+    iframe{width:100%;height:260px;border:none;border-radius:24px;box-shadow:var(--shadow)}
+    @media(max-width:900px){.steps-wrap{grid-template-columns:1fr}}
 
     /* FOOTER */
-    footer{
-      padding:40px 20px 30px;
-      border-top:1px solid rgba(255,255,255,0.12);
-      background:#020202;
-    }
-    .footer-inner{
-      max-width:var(--max-width);
-      margin:auto;
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:space-between;
-      gap:10px;
-      font-size:0.82rem;
-      color:var(--text-muted);
+    footer{background:#000;padding:40px 20px;text-align:center;font-size:.85rem;color:var(--muted);border-top:1px solid rgba(255,255,255,.12)}
+
+    /* WHATSAPP */
+    .whatsapp{
+      position:fixed;bottom:24px;right:24px;width:70px;height:70px;
+      border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;
+      font-size:32px;box-shadow:0 0 24px #25D366;z-index:999;
     }
 
-    /* WHATSAPP FLOAT */
-    .whatsapp-float{
-      position:fixed;
-      right:24px;bottom:24px;
-      width:70px;height:70px;
-      border-radius:50%;
-      background:#25D366;
-      display:flex;align-items:center;justify-content:center;
-      font-size:32px;
-      box-shadow:0 0 24px #25D366;
-      z-index:1100;
-    }
-
-    /* ANIMACIONES base (GSAP las usa) */
-    .reveal{opacity:0;transform:translateY(40px);}
-    .reveal-scale{opacity:0;transform:scale(.95);}
+    /* GSAP helpers */
+    .reveal{opacity:0;transform:translateY(40px)}
+    .reveal-scale{opacity:0;transform:scale(.95)}
   </style>
-
-  <!-- GSAP + ScrollTrigger -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 </head>
 
 <body>
@@ -380,58 +145,27 @@
       <a href="#mayorista">Mayorista</a>
       <a href="#contacto">Horarios</a>
     </nav>
-    <a href="https://wa.me/5490000000000" target="_blank" class="nav-cta">Pedir por WhatsApp</a>
+    <a href="https://wa.me/5490000000000" class="navbtn" target="_blank">Pedir por WhatsApp</a>
   </div>
 </header>
 
 <!-- HERO -->
 <section class="hero" id="inicio">
   <div class="hero-inner">
-    <div class="hero-copy">
-      <h1 class="reveal">Cortes <span>premium</span> para tu mesa</h1>
-      <p class="reveal">
-        Carnicería boutique con alma de barrio. Parrilla, semana y freezer. Pedís por WhatsApp
-        y te preparamos todo listo para cocinar o guardar.
-      </p>
-      <div class="hero-ctas reveal">
-        <a href="https://wa.me/5490000000000" target="_blank" class="btn-primary">Hacer pedido ahora</a>
-        <button class="btn-secondary" onclick="document.getElementById('promos').scrollIntoView({behavior:'smooth'})">
-          Ver promos del fin de semana
-        </button>
-      </div>
-      <div class="badge-strip reveal">
-        <div class="badge"><strong>+1200</strong> pedidos al año</div>
-        <div class="badge">Especialistas en asado argentino</div>
-        <div class="badge">Pedidos por WhatsApp en 2 minutos</div>
+    <div class="reveal">
+      <h1>Cortes <span>premium</span> para tu mesa</h1>
+      <p>Carnicería boutique con alma de barrio. Pedís por WhatsApp, te asesoramos y preparamos todo listo para cocinar o freezer.</p>
+      <div class="hero-ctas">
+        <a href="https://wa.me/5490000000000" class="btn-main" target="_blank">Hacer pedido ahora</a>
+        <a href="#promos" class="btn-sec">Ver promos del fin de semana</a>
       </div>
     </div>
-
     <div class="hero-box reveal-scale">
       <h3>Combos más vendidos</h3>
-      <div class="combo-row">
-        <div>
-          <div>Combo Asado Familiar</div>
-          <small style="color:var(--text-muted)">Tira + vacío + chorizos + morcilla (4/5 personas)</small>
-        </div>
-        <div class="combo-price">$24.900</div>
-      </div>
-      <div class="combo-row">
-        <div>
-          <div>Pack Milanesas Semana</div>
-          <small style="color:var(--text-muted)">3 kg nalga / cuadrada fileteada</small>
-        </div>
-        <div class="combo-price">$19.800</div>
-      </div>
-      <div class="combo-row">
-        <div>
-          <div>Freezer 15 días</div>
-          <small style="color:var(--text-muted)">Variedad de cortes para todos los días</small>
-        </div>
-        <div class="combo-price">$34.500</div>
-      </div>
-      <p style="margin-top:12px;font-size:0.8rem;color:var(--text-muted);">
-        🚚 Envíos en la zona y retiro en mostrador sin hacer fila.
-      </p>
+      <div class="combo"><span>Asado Familiar</span><strong>$24.900</strong></div>
+      <div class="combo"><span>Milanesas XL (3 kg)</span><strong>$19.800</strong></div>
+      <div class="combo"><span>Freezer 15 días</span><strong>$34.500</strong></div>
+      <p style="margin-top:10px;font-size:.8rem;color:var(--muted)">🚚 Envíos en la zona y retiro sin espera.</p>
     </div>
   </div>
 </section>
@@ -440,34 +174,15 @@
 <section id="servicios">
   <div class="container">
     <h2 class="title reveal">Servicios pensados para vender</h2>
-    <p class="subtitle reveal">
-      Textos, estructura y ofertas listos para mostrar a tu cliente cómo se ve una carnicería moderna que vende por WhatsApp todos los días.
-    </p>
+    <p class="subtitle reveal">Estructura, textos y ofertas para que el cliente sienta que esta carnicería ya está vendiendo todos los días por WhatsApp.</p>
+
     <div class="grid">
-      <div class="card reveal">
-        <h3>Cortes para parrilla</h3>
-        <p>Asado, vacío, entraña, matambre, colita de cuadril y más, listos para la parrillada del fin de semana.</p>
-      </div>
-      <div class="card reveal">
-        <h3>Cortes para todos los días</h3>
-        <p>Nalga, bola de lomo, paleta, roast beef y opciones prácticas para milanesas, guisos y bifes.</p>
-      </div>
-      <div class="card reveal">
-        <h3>Elaborados listos</h3>
-        <p>Hamburguesas caseras, albóndigas, brochettes y más opciones para cocinar rápido sin perder calidad.</p>
-      </div>
-      <div class="card reveal">
-        <h3>Pedidos por WhatsApp</h3>
-        <p>El cliente escribe, se le asesora en cortes y combos según cantidad de personas y presupuesto.</p>
-      </div>
-      <div class="card reveal">
-        <h3>Envíos y retiro</h3>
-        <p>Entrega en la zona o retiro rápido con todo preparado, pesado y etiquetado con el nombre del cliente.</p>
-      </div>
-      <div class="card reveal">
-        <h3>Venta mayorista</h3>
-        <p>Restaurantes, parrillas, bares y eventos con listas de precios especiales y atención directa.</p>
-      </div>
+      <div class="card reveal">Cortes para asado y parrilla</div>
+      <div class="card reveal">Cortes para todos los días</div>
+      <div class="card reveal">Elaborados listos para cocinar</div>
+      <div class="card reveal">Pedidos y asesoría por WhatsApp</div>
+      <div class="card reveal">Envíos y retiro en mostrador</div>
+      <div class="card reveal">Atención mayorista y gastronomía</div>
     </div>
   </div>
 </section>
@@ -476,74 +191,58 @@
 <section id="promos">
   <div class="container">
     <h2 class="title reveal">Promos de la semana</h2>
-    <p class="subtitle reveal">
-      Ofertas pensadas para llenar la heladera sin vaciar el bolsillo. Perfectas para mostrarle al cliente cómo se vende fácil por WhatsApp.
-    </p>
+    <p class="subtitle reveal">Ejemplos de ofertas reales para mostrarle al cliente cómo puede mover stock con combos claros y atractivos.</p>
 
-    <div class="promo-grid">
-      <div class="promo-main reveal-scale">
-        <h2>Combo Parrillero Full</h2>
-        <p>Asado, vacío, 6 chorizos, 2 morcillas, 1 provoleta — ideal 4/5 personas.</p>
-        <div class="price">$24.900</div>
-        <small>Incluye corte y preparación sin costo.</small>
-        <br><br>
-        <button class="btn-primary" onclick="openWhatsApp('Hola, quiero reservar el Combo Parrillero Full')">
-          Reservar por WhatsApp
-        </button>
-      </div>
+    <div class="promo-main reveal-scale">
+      <h2>Combo Parrillero Full</h2>
+      <p>Asado + vacío + 6 chorizos + 2 morcillas + provoleta — ideal 4/5 personas.</p>
+      <div class="price">$24.900</div>
+      <button class="btn-main" onclick="openWhatsApp('Hola, quiero reservar el Combo Parrillero Full')" style="border:none;cursor:pointer;">Reservar por WhatsApp</button>
 
-      <div class="promo-side">
-        <div class="promo-card reveal">
+      <div class="promo-list">
+        <div class="promo-item">
           <div>
             <strong>Pack Milanesas Familiar</strong>
-            <span>3 kg nalga fileteada + pan rallado</span>
+            <div>3 kg de nalga fileteada lista para empanar.</div>
           </div>
-          <div class="promo-card-price">$19.800</div>
+          <div><strong>$19.800</strong></div>
         </div>
-        <div class="promo-card reveal">
+        <div class="promo-item">
           <div>
             <strong>Pack Freezer 7 días</strong>
-            <span>Cortes variados para semana completa</span>
+            <div>Variedad de cortes para almuerzos y cenas de toda la semana.</div>
           </div>
-          <div class="promo-card-price">$18.900</div>
+          <div><strong>$18.900</strong></div>
         </div>
-        <div class="promo-card reveal">
-          <div>
-            <strong>Pollo & alitas</strong>
-            <span>2 pollos trozados + 1 kg alitas adobadas</span>
-          </div>
-          <div class="promo-card-price">$11.900</div>
-        </div>
-        <div class="promo-card reveal">
+        <div class="promo-item">
           <div>
             <strong>Hamburguesas caseras</strong>
-            <span>15 unidades de 120g + pan</span>
+            <div>15 unidades de 120 g + pan.</div>
           </div>
-          <div class="promo-card-price">$13.500</div>
+          <div><strong>$13.500</strong></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- GALERIA -->
+<!-- GALERÍA -->
 <section id="galeria">
   <div class="container">
     <h2 class="title reveal">Calidad que se ve</h2>
-    <p class="subtitle reveal">
-      Imágenes reales de cortes y parrilla para que el cliente se imagine su negocio mostrando productos así de bien.
-    </p>
+    <p class="subtitle reveal">Imágenes reales de cortes y parrilla para que el cliente se imagine su negocio mostrando productos así de bien.</p>
+
     <div class="grid">
       <div class="gallery-item reveal-scale">
-        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80" alt="Cortes listos para mostrador">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80" alt="Costillas y guarnición">
         <div class="gallery-label">Cortes listos para mostrador</div>
       </div>
       <div class="gallery-item reveal-scale">
-        <img src="https://images.unsplash.com/photo-1604908176997-1251884b08a3?auto=format&fit=crop&w=900&q=80" alt="Parrilla y asado">
-        <div class="gallery-label">Pensado para la parrilla</div>
+        <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=900&q=80" alt="Parrilla y asado">
+        <div class="gallery-label">Parrilla en acción</div>
       </div>
       <div class="gallery-item reveal-scale">
-        <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=900&q=80" alt="Cortes premium">
+        <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=900&q=80" alt="Cortes premium crudos">
         <div class="gallery-label">Selección premium</div>
       </div>
     </div>
@@ -557,7 +256,7 @@
     <div class="grid">
       <div class="testi reveal">
         ⭐⭐⭐⭐⭐<br>
-        “Desde que compro acá no piso más el súper. La carne siempre fresca y al precio que me dicen por WhatsApp.”
+        “Desde que compro acá no piso más el súper. La carne siempre fresca y al precio que me dijeron por WhatsApp.”
         <strong>María González · Cliente hace 2 años</strong>
       </div>
       <div class="testi reveal">
@@ -577,56 +276,32 @@
 <!-- MAYORISTA -->
 <section id="mayorista">
   <div class="container">
-    <h2 class="title reveal">Mayorista & restaurantes</h2>
-    <p class="subtitle reveal">
-      Sección pensada para que tu cliente vea que con la misma web puede vender a público final y también a gastronomía.
-    </p>
+    <h2 class="title reveal">Mayorista y gastronomía</h2>
+    <p class="subtitle reveal">Sección clave para mostrar que esta misma web también sirve para restaurantes, parrillas y eventos.</p>
+
     <div class="grid">
-      <div class="card reveal">
-        <h3>Restaurantes & parrillas</h3>
-        <p>Abastecimiento regular con cortes estandarizados, gramajes definidos y presentación siempre igual.</p>
-      </div>
-      <div class="card reveal">
-        <h3>Eventos & catering</h3>
-        <p>Asesoramiento en cantidades según tipo de evento y número de invitados. Entrega coordinada.</p>
-      </div>
-      <div class="card reveal">
-        <h3>Precios por volumen</h3>
-        <p>Listas exclusivas para gastronomía con márgenes pensados para revender con tranquilidad.</p>
-      </div>
-      <div class="card reveal">
-        <h3>Canal directo</h3>
-        <p>WhatsApp exclusivo para dueños, encargados y chefs, sin esperas ni intermediarios.</p>
-      </div>
+      <div class="card reveal">Abastecimiento a restaurantes y parrillas</div>
+      <div class="card reveal">Eventos y catering con planificación de cantidades</div>
+      <div class="card reveal">Listas de precios por volumen</div>
+      <div class="card reveal">WhatsApp exclusivo para dueños y chefs</div>
     </div>
   </div>
 </section>
 
-<!-- PASOS + HORARIOS + UBICACION -->
+<!-- PASOS + HORARIOS + MAPA -->
 <section id="contacto">
   <div class="container">
-    <h2 class="title reveal">Cómo funciona, horarios y ubicación</h2>
-    <div class="steps-hours">
-      <div class="reveal">
-        <h3>Paso a paso para comprar</h3>
-        <div class="step">
-          <div class="step-number">1</div>
-          <strong>Nos escribís por WhatsApp</strong>
-          <p>Contás para cuántas personas comprás y qué tipo de comidas hacés (parrilla, semana, freezer, etc.).</p>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <strong>Te recomendamos cortes y combos</strong>
-          <p>Te proponemos opciones según tu presupuesto, sin compromiso, y definimos tu pedido.</p>
-        </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <strong>Preparamos y retirás o recibís</strong>
-          <p>Te dejamos todo pesado, etiquetado y ordenado: solo tenés que guardar o cocinar.</p>
-        </div>
+    <h2 class="title reveal">Cómo comprar, horarios y ubicación</h2>
 
-        <h3 style="margin-top:24px;">Horarios de atención</h3>
-        <table class="hours-table">
+    <div class="steps-wrap">
+      <div class="reveal">
+        <h3>Paso a paso</h3>
+        <div class="step"><strong>1.</strong> Nos escribís por WhatsApp contando qué necesitás.</div>
+        <div class="step"><strong>2.</strong> Te recomendamos cortes, cantidades y combos según personas y presupuesto.</div>
+        <div class="step"><strong>3.</strong> Preparamos tu pedido y coordinamos envío o retiro.</div>
+
+        <h3 style="margin-top:22px;">Horarios de atención</h3>
+        <table>
           <tr><td>Lunes a Viernes</td><td>9:00 a 13:00 / 17:00 a 20:30</td></tr>
           <tr><td>Sábados</td><td>9:00 a 14:00</td></tr>
           <tr><td>Domingos y feriados</td><td>Consultar por WhatsApp</td></tr>
@@ -635,9 +310,7 @@
 
       <div class="reveal">
         <h3>Ubicación</h3>
-        <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:8px;">
-          Av. Ejemplo 1234 · Barrio Demo · Ciudad
-        </p>
+        <p style="font-size:.9rem;color:var(--muted);margin-bottom:8px;">Av. Demo 1234 · Barrio Ejemplo · Ciudad</p>
         <iframe src="https://maps.google.com/maps?q=Buenos%20Aires&t=&z=13&ie=UTF8&iwloc=&output=embed" loading="lazy"></iframe>
       </div>
     </div>
@@ -645,13 +318,10 @@
 </section>
 
 <footer>
-  <div class="footer-inner">
-    <div>© 2025 Carnes Premium · Demo creada para presentación comercial.</div>
-    <div>Lista para conectar con chatbot y sistema de pedidos.</div>
-  </div>
+  © 2026 Carnes Premium · Demo profesional lista para conectar con tu backend y chatbot
 </footer>
 
-<a href="https://wa.me/5490000000000" target="_blank" class="whatsapp-float">💬</a>
+<a href="https://wa.me/5490000000000" class="whatsapp" target="_blank">💬</a>
 
 <script>
   function openWhatsApp(msg){
@@ -663,47 +333,17 @@
   document.addEventListener("DOMContentLoaded", function(){
     gsap.registerPlugin(ScrollTrigger);
 
-    // Hero
-    gsap.from(".hero-copy h1, .hero-copy p, .hero-ctas, .badge-strip", {
-      y: 40,
-      opacity: 0,
-      duration: 1.1,
-      ease: "power3.out",
-      stagger: 0.15
-    });
-
-    gsap.from(".hero-box", {
-      y: 40,
-      opacity: 0,
-      duration: 1,
-      ease: "power3.out",
-      delay: 0.3
-    });
-
-    // Secciones reveal
-    gsap.utils.toArray(".reveal").forEach(el => {
-      gsap.to(el, {
-        scrollTrigger: {
-          trigger: el,
-          start: "top 80%",
-        },
-        y: 0,
-        opacity: 1,
-        duration: 0.9,
-        ease: "power3.out"
+    gsap.utils.toArray(".reveal").forEach(el=>{
+      gsap.to(el,{
+        scrollTrigger:{trigger:el,start:"top 80%"},
+        y:0,opacity:1,duration:.9,ease:"power3.out"
       });
     });
 
-    gsap.utils.toArray(".reveal-scale").forEach(el => {
-      gsap.to(el, {
-        scrollTrigger: {
-          trigger: el,
-          start: "top 80%",
-        },
-        scale: 1,
-        opacity: 1,
-        duration: 0.9,
-        ease: "power3.out"
+    gsap.utils.toArray(".reveal-scale").forEach(el=>{
+      gsap.to(el,{
+        scrollTrigger:{trigger:el,start:"top 80%"},
+        scale:1,opacity:1,duration:.9,ease:"power3.out"
       });
     });
   });
