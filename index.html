@@ -1,126 +1,370 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Carnes Premium | Demo Carnicería Profesional</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Demo de carnicería profesional para vender cortes de alta calidad, combos y promos por WhatsApp." />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <title>La Casa de las Carnes | Carnicería Premium</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Carnicería premium con cortes seleccionados, combos para parrilla y pedidos por WhatsApp. Demo profesional de venta online.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg-dark: #080808;
-      --bg-section: #121212;
-      --accent: #ff4b3a;
-      --accent-soft: #ffb199;
-      --text-main: #ffffff;
-      --text-muted: #c2c2c2;
-      --card-bg: rgba(255, 255, 255, 0.03);
-      --border-soft: rgba(255, 255, 255, 0.06);
-      --radius-lg: 22px;
-      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.65);
-      --max-width: 1200px;
+      --dark: #0d0d0d;
+      --red: #c0392b;
+      --gold: #f1c40f;
+      --gray: #b3b3b3;
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
+      font-family: 'Poppins', sans-serif;
     }
 
     body {
-      background: radial-gradient(circle at top, #1c1c1c 0, #050505 55%);
-      color: var(--text-main);
+      background: radial-gradient(circle at top, #1a1a1a, #000);
+      color: #fff;
+      scroll-behavior: smooth;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { text-decoration: none; color: inherit; }
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    /* NAVBAR */
-
-    .navbar {
+    header {
       position: fixed;
       top: 0;
-      left: 0;
-      right: 0;
-      z-index: 50;
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.7), transparent);
+      width: 100%;
+      z-index: 999;
+      background: rgba(0,0,0,0.7);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
-    .nav-inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 16px 20px;
+    .nav {
+      max-width: 1200px;
+      margin: auto;
+      padding: 15px 20px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      align-items: center;
     }
 
     .brand {
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .menu {
       display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      background: radial-gradient(circle at 20% 20%, #ff9f68, #ff4b3a);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      box-shadow: 0 0 20px rgba(255, 75, 58, 0.5);
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
-    }
-
-    .brand-text span:first-child {
-      font-weight: 800;
-      font-size: 1rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .brand-text span:last-child {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 18px;
+      gap: 20px;
       font-size: 0.9rem;
     }
 
-    .nav-links a {
-      opacity: 0.8;
-      position: relative;
+    .menu a { opacity: 0.8; }
+    .menu a:hover { opacity: 1; color: var(--gold); }
+
+    .btn-nav {
+      background: var(--red);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
     }
 
-    .nav-links a:hover {
-      opacity: 1;
+    /* HERO */
+
+    .hero {
+      min-height: 100vh;
+      padding-top: 120px;
+      background:
+        linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.9)),
+        url("https://images.unsplash.com/photo-1604908176997-1251884b08a3?auto=format&fit=crop&w=1500&q=80")
+        center/cover no-repeat;
+      display: flex;
+      align-items: center;
     }
 
-    .nav-links a::after {
-      content: "";
-      position: absolute;
+    .hero-content {
+      max-width: 1200px;
+      margin: auto;
+      padding: 40px 20px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 900;
+    }
+
+    .hero h1 span { color: var(--gold); }
+
+    .hero p {
+      margin-top: 15px;
+      max-width: 500px;
+      color: var(--gray);
+    }
+
+    .hero-cta {
+      margin-top: 30px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn-main {
+      background: linear-gradient(135deg, var(--red), #ff6b5a);
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 700;
+      box-shadow: 0 10px 30px rgba(192,57,43,0.6);
+    }
+
+    .btn-sec {
+      border: 1px solid rgba(255,255,255,.2);
+      padding: 13px 28px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    .hero-box {
+      background: rgba(0,0,0,0.7);
+      border-radius: 24px;
+      padding: 25px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .combo {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed rgba(255,255,255,0.1);
+      padding: 10px 0;
+      font-size: 0.9rem;
+    }
+
+    .combo:last-child { border: none; }
+
+    /* SECCIONES */
+
+    section {
+      padding: 90px 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .title {
+      font-size: 2.4rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: var(--gray);
+      margin-bottom: 40px;
+      max-width: 600px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.03);
+      padding: 25px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: 0.3s;
+    }
+
+    .card:hover { transform: translateY(-8px); }
+
+    /* PROMOS */
+
+    .promo-main {
+      background: linear-gradient(135deg, var(--gold), #ffdd6b);
+      color: #1a1a1a;
+      border-radius: 30px;
+      padding: 35px;
+      margin-bottom: 30px;
+    }
+
+    .promo-main h2 { font-size: 2rem; }
+
+    .price {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin: 20px 0;
+    }
+
+    /* GALERIA */
+
+    .gallery img {
+      width: 100%;
+      border-radius: 18px;
+    }
+
+    /* MAPA */
+
+    iframe {
+      width: 100%;
+      height: 320px;
+      border-radius: 25px;
+      border: none;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: black;
+      padding: 40px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    /* WHATSAPP */
+
+    .whatsapp {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 70px;
+      height: 70px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: black;
+      box-shadow: 0 0 25px #25D366;
+      animation: pulse 2s infinite;
+      z-index: 999;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.7); }
+      70% { box-shadow: 0 0 0 22px rgba(37,211,102,0); }
+      100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+    }
+
+    @media (max-width: 900px) {
+      .hero-content { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">🥩 La Casa de las Carnes</div>
+    <div class="menu">
+      <a href="#servicios">Servicios</a>
+      <a href="#promos">Promos</a>
+      <a href="#galeria">Galería</a>
+      <a href="#ubicacion">Ubicación</a>
+    </div>
+    <a class="btn-nav" href="https://wa.me/5490000000000" target="_blank">Pedir ahora</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <div>
+      <h1>Cortes <span>premium</span> para tu mesa</h1>
+      <p>Carnes seleccionadas todos los días, combos para parrilla, semana y freezer. Pedís por WhatsApp y te lo preparamos listo para cocinar.</p>
+
+      <div class="hero-cta">
+        <a href="https://wa.me/5490000000000" class="btn-main">Hacer pedido</a>
+        <a href="#promos" class="btn-sec">Ver promos</a>
+      </div>
+    </div>
+
+    <div class="hero-box">
+      <h3>Combos destacados</h3>
+      <div class="combo">
+        <span>Asado Familiar</span>
+        <strong>$24.900</strong>
+      </div>
+      <div class="combo">
+        <span>Milanesas XXL</span>
+        <strong>$19.800</strong>
+      </div>
+      <div class="combo">
+        <span>Freezer 15 días</span>
+        <strong>$34.500</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="container">
+    <h2 class="title">Nuestros Servicios</h2>
+    <p class="subtitle">Pensados para que compres rápido, fácil y sin equivocarte en el corte.</p>
+
+    <div class="grid">
+      <div class="card">🔥 Cortes para asado y parrilla</div>
+      <div class="card">🍽 Cortes para todos los días</div>
+      <div class="card">🥩 Elaborados y preparados</div>
+      <div class="card">📲 Pedidos por WhatsApp</div>
+      <div class="card">🚚 Envíos en la zona</div>
+      <div class="card">🏪 Atención mayorista</div>
+    </div>
+  </div>
+</section>
+
+<section id="promos">
+  <div class="container">
+    <h2 class="title">Promoción Principal</h2>
+
+    <div class="promo-main">
+      <h2>Combo Parrillero Full</h2>
+      <p>Asado + vacío + chorizos + morcilla + provoleta (4 a 5 personas)</p>
+      <div class="price">$24.900</div>
+      <a href="https://wa.me/5490000000000" class="btn-main">Reservar por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<section id="galeria">
+  <div class="container">
+    <h2 class="title">Calidad que se ve</h2>
+
+    <div class="grid gallery">
+      <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=900&q=80">
+      <img src="https://images.unsplash.com/photo-1514512364185-4c2b8f6f0886?auto=format&fit=crop&w=900&q=80">
+      <img src="https://images.unsplash.com/photo-1505577058444-a3dab90d4253?auto=format&fit=crop&w=900&q=80">
+    </div>
+  </div>
+</section>
+
+<section id="ubicacion">
+  <div class="container">
+    <h2 class="title">Dónde estamos</h2>
+    <p class="subtitle">Retiro en mostrador o envío coordinado.</p>
+
+    <iframe src="https://maps.google.com/maps?q=Buenos%20Aires&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 La Casa de las Carnes - Demo comercial profesional</p>
+</footer>
+
+<a href="https://wa.me/5490000000000" class="whatsapp">💬</a>
+
+</body>
+</html>
       left: 0;
       bottom: -4px;
       width: 0;
@@ -1175,3 +1419,4 @@
   </script>
 </body>
 </html>
+
